@@ -1,0 +1,86 @@
+<div class="ps-lg-5 row mx-0 my-3">
+  <div class="col-9">
+    <form id="form" (ngSubmit)="onSubmit()" #userDetailForm="ngForm">
+      <div class="container">
+        <h4>General</h4>
+
+        <div class="mb-3">
+          <label for="nameGeneral" class="form-label">Name</label>
+          <input type="text" class="form-control" id="nameGeneral" name="nameGeneral" placeholder="Rob" #nameGeneral="ngModel"
+            [(ngModel)]="user.name" required />
+          <div [hidden]="nameGeneral.valid || nameGeneral.pristine" class="alert alert-danger">Name Is required</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="usernameGeneral" class="form-label">UserName</label>
+          <input type="text" class="form-control" id="usernameGeneral" name="usernameGeneral" placeholder="Rob" #usernameGeneral="ngModel"
+            [(ngModel)]="user.username" required minlength="8" />
+          <div [hidden]="usernameGeneral.valid || (usernameGeneral.pristine && !usernameGeneral.value)" class="alert alert-danger">UserName is
+            required and should contain at least 8 characters</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="emailGeneral" class="form-label">email</label>
+          <input type="email" class="form-control" id="emailGeneral" name="emailGeneral" placeholder="name@example.com"
+            #emailGeneral="ngModel" [(ngModel)]="user.email" required pattern="[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" />
+          <div [hidden]="(emailGeneral.valid || emailGeneral.pristine) && !emailGeneral.errors?.['pattern']" class="row alert alert-danger">
+            <span *ngIf="emailGeneral.errors?.['required'] && emailGeneral.touched">Email is required</span>
+            <span *ngIf="emailGeneral.errors?.['pattern'] && emailGeneral.value">Not a valid email</span>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="websiteGeneral" class="form-label">Web Site</label>
+          <input type="url" class="form-control" id="websiteGeneral" name="websiteGeneral" placeholder="website.com"
+            #websiteGeneral="ngModel" [(ngModel)]="user.website" />
+        </div>
+      </div>
+
+      <br />
+
+      <div class="container">
+        <h4>Address</h4>
+
+        <div class="mb-3">
+          <label for="streetAddress" class="form-label">Street</label>
+          <input type="text" class="form-control" id="streetAddress" name="streetAddress" placeholder="Rob" #streetAddress="ngModel"
+            [(ngModel)]="user.address.street" required />
+          <div [hidden]="streetAddress.valid || streetAddress.pristine" class="alert alert-danger">Street is required</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="cityAddress" class="form-label">City</label>
+          <input type="text" class="form-control" id="cityAddress" name="cityAddress" placeholder="the city" #cityAddress="ngModel"
+            [(ngModel)]="user.address.city" required />
+          <div [hidden]="cityAddress.valid || cityAddress.pristine" class="alert alert-danger">City is required</div>
+        </div>
+
+        <div class="mb-3">
+          <label for="zipcodeAddress" class="form-label">Zipcode</label>
+          <input type="text" class="form-control" id="zipcodeAddress" name="zipcodeAddress" placeholder="the zipcode"
+            #zipcodeAddress="ngModel" [(ngModel)]="user.address.zipcode" required />
+          <div [hidden]="zipcodeAddress.valid || zipcodeAddress.pristine" class="alert alert-danger">Zipcode is required</div>
+        </div>
+      </div>
+
+      <br />
+
+      <div class="container">
+        <h4>Company</h4>
+
+        <div class="mb-3">
+          <label for="nameFormControlInput" class="form-label">Name</label>
+          <input type="text" class="form-control" id="nameFormControlInput" name="nameCompany" placeholder="beanTech"
+            [(ngModel)]="user.company.name" />
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="col-3">
+    <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+      <button form="form" type="submit" class="btn btn-primary" [disabled]="!userDetailForm.form.valid">Save</button>
+      <button type="button" class="btn btn-warning" [routerLink]="['/userlist']">Cancel</button>
+    </div>
+  </div>
+</div>
